@@ -1,0 +1,14 @@
+
+use std::{option::Option::{Option, Some, None}, result::Result::{Result, Ok, Err}};
+
+pub fn main(&io: &IO) {
+  let input = io.full_input();
+
+  let part1 = 0;
+
+  io.println("Part 1: " ++ part1.to_string());
+
+  let part2 = 0;
+
+  io.println("Part 2: " ++ part2.to_string());
+}

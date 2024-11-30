@@ -1,0 +1,3 @@
+{
+  "vine.entrypoints": ["src/day-*.vi", "src/util.vi"]
+}
