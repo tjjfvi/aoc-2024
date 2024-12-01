@@ -1,3 +1,4 @@
 {
-  "vine.entrypoints": ["src/day-*.vi", "src/util.vi"]
+  "vine.entrypoints": ["src/*"],
+  "vine.cli": ["vine"]
 }
