@@ -1,6 +1,8 @@
 
 use std::{option::Option::{Option, Some, None}, result::Result::{Result, Ok, Err}};
 
+use util::list_new;
+
 pub fn main(&io: &IO) {
   let lines = [];
   while io.read_line() is Some(line) {
@@ -159,15 +161,6 @@ fn foo_channel[M](&c: &Channel[M]) -> (Channel[M], Channel[M]) {
   let (a, b) = new_channel();
   c = a;
   (x, b)
-}
-
-fn list_new[T](len: N32, value: T) -> List[T] {
-  let list = [];
-  while len != 0 {
-    list.push_back(value);
-    len -= 1;
-  }
-  list
 }
 
 fn new_channel[M]() -> (Channel[M], Channel[M]) {
