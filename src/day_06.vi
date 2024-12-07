@@ -1,5 +1,5 @@
 
-use std::{option::Option::{Option, Some, None}, result::Result::{Result, Ok, Err}};
+use std::{option::Option::{Option, Some, None}, result::Result::{Result, Ok, Err}, array::Array};
 
 pub fn main(&io: &IO) {
   let input = io.full_input();
@@ -10,7 +10,7 @@ pub fn main(&io: &IO) {
 
   let y = 0;
   let iter = grid.iter();
-  while.outer iter.next() is Some(&row) {
+  while iter.next() is Some(&row) {
     let x = 0;
     let iter = row.iter();
     while iter.next() is Some(&cell) {
@@ -22,6 +22,8 @@ pub fn main(&io: &IO) {
     }
     y += 1;
   }
+
+  let grid = Array::from_list(grid.map(Array::from_list));
 
   let (_, length) = walk(&grid, guard_pos);
 
@@ -46,13 +48,15 @@ pub fn main(&io: &IO) {
   io.println("Part 2: " ++ loops.to_string());
 }
 
-fn clear(&grid: &List[List[Char]], &spaces: &List[(N32, N32)]) {
+fn clear(&grid: &Array[Array[Char]], &spaces: &List[(N32, N32)]) {
+  let height = grid.len();
+  let width = (*grid.get(0)).len();
   let y = 0;
-  let iter = grid.iter();
-  while.outer iter.next() is Some(&row) {
+  while y < height {
+    let &row = grid.get(y);
     let x = 0;
-    let iter = row.iter();
-    while iter.next() is Some(&cell) {
+    while x < width {
+      let &cell = row.get(x);
       if cell == 'X' {
         spaces ++= [(x, y)];
         cell = '.';
@@ -63,7 +67,7 @@ fn clear(&grid: &List[List[Char]], &spaces: &List[(N32, N32)]) {
   }
 }
 
-fn walk(&grid: &List[List[Char]], pos: (N32, N32)) -> (Bool, N32) {
+fn walk(&grid: &Array[Array[Char]], pos: (N32, N32)) -> (Bool, N32) {
   let height = grid.len();
   let width = (*grid.get(0)).len();
   let dir = (0, -1);
