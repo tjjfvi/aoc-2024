@@ -48,22 +48,16 @@ pub fn main(&io: &IO) {
   let set = DisjointSet::new(size * size);
 
   dyn fn coord(x: N32, y: N32) {
-    if x < size && y < size {
-      y * size + x + 2
-    } else if x == -1 || y == size {
-      0
-    } else {
-      1
-    }
+    y * size + x
   }
 
-  let blocked = Array::new(size, Array::new(size, false));
+  let blocked = Array::new(size, Array::new(size, true));
 
-  dyn fn add_data(x: N32, y: N32) {
+  dyn fn remove_data(x: N32, y: N32) {
     dyn fn connect(dx: N32, dy: N32) {
       let X = x + dx;
       let Y = y + dy;
-      if *(*blocked.get(Y)).get(X) {
+      if X < size && Y < size && !*(*blocked.get(Y)).get(X) {
         set.union(coord(x, y), coord(X, Y));
       }
     }
@@ -71,23 +65,32 @@ pub fn main(&io: &IO) {
     connect(-1, 0);
     connect(0, 1);
     connect(0, -1);
-    connect(1, 1);
-    connect(-1, -1);
-    connect(-1, 1);
-    connect(1, -1);
-    *(*blocked.get(y)).get(x) = true;
+    *(*blocked.get(y)).get(x) = false;
   }
 
   let i = 0;
-  let (x, y);
-  while data.pop_front() is Some(pos) {
-    (x, y) = pos;
-    add_data(x, y);
-    i += 1;
-    if i > iters && set.find(0) == set.find(1) {
-      break;
+  let y = 0;
+  while y < size {
+    let x = 0;
+    while x < size {
+      if *(*grid.get(y)).get(x) == -1 {
+        i += 1;
+        remove_data(x, y);
+      }
+      x += 1;
     }
+    y += 1;
   }
+
+  let data_rev = data.reversed();
+
+  let i = bytes;
+  while set.find(0) != set.find(size * size - 1) && data_rev.pop_front() is Some((x, y)) {
+    remove_data(x, y);
+    i -= 1;
+  }
+
+  let (x, y) = *data.get(i);
 
   io.println("Part 2: " ++ x.to_string() ++ "," ++ y.to_string());
 }
