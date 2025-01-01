@@ -1,9 +1,0 @@
-
-pub fn list_new[T](len: N32, value: T) -> List[T] {
-  let list = [];
-  while len != 0 {
-    list.push_back(value);
-    len -= 1;
-  }
-  list
-}

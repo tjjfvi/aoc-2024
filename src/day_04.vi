@@ -1,8 +1,6 @@
 
 use std::{option::Option::{Option, Some, None}, result::Result::{Result, Ok, Err}};
 
-use util::list_new;
-
 pub fn main(&io: &IO) {
   let lines = [];
   while io.read_line() is Some(line) {
@@ -118,9 +116,9 @@ struct Neighbors[M](
 
 fn diamond[T, M, X](grid: List[List[T]], f: fn(T, Neighbors[M], &X), d: M, state: X) -> X {
   let width = (*grid.get(0)).len();
-  let north = list_new(width, neglect_channel(d));
-  let north_west = list_new(width, neglect_channel(d));
-  let north_east = list_new(width, neglect_channel(d));
+  let north = List::new(width, neglect_channel(d));
+  let north_west = List::new(width, neglect_channel(d));
+  let north_east = List::new(width, neglect_channel(d));
   while grid.pop_front() is Some(row) {
     let west = neglect_channel(d);
     {
